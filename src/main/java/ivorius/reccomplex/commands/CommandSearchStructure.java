@@ -16,7 +16,6 @@ import ivorius.reccomplex.structures.StructureRegistry;
 import ivorius.reccomplex.structures.generic.GenericStructureInfo;
 import ivorius.reccomplex.structures.generic.Metadata;
 import ivorius.reccomplex.utils.ServerTranslations;
-import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.event.ClickEvent;
@@ -65,7 +64,7 @@ public class CommandSearchStructure extends CommandBase
         keywords.add(metadata.comment);
         keywords.add(metadata.weblink);
 
-        return keywords.stream().anyMatch(Predicates.contains(Pattern.compile(Strings.join(Lists.transform(query, Pattern::quote), "|")))::apply) ? 1 : 0;
+        return keywords.stream().anyMatch(Predicates.contains(Pattern.compile(String.join("|",Lists.transform(query, Pattern::quote))))::apply) ? 1 : 0;
     }
 
     @Override

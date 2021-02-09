@@ -11,7 +11,6 @@ import ivorius.ivtoolkit.blocks.BlockCoord;
 import ivorius.reccomplex.RCConfig;
 import ivorius.reccomplex.utils.ServerTranslations;
 import ivorius.reccomplex.worldgen.StructureGenerationData;
-import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.MathHelper;
@@ -66,7 +65,7 @@ public class CommandWhatIsThis extends CommandBase
         {
             List<StructureGenerationData.Entry> ordered = Lists.newArrayList(entries);
             if (ordered.size() > 1)
-                commandSender.addChatMessage(ServerTranslations.format("commands.whatisthis.many", Strings.join(Lists.transform(ordered, StructureGenerationData.Entry::getStructureID), ", ")));
+                commandSender.addChatMessage(ServerTranslations.format("commands.whatisthis.many", String.join(", ", Lists.transform(ordered, StructureGenerationData.Entry::getStructureID))));
             else
                 commandSender.addChatMessage(ServerTranslations.format("commands.whatisthis.one", ordered.get(0).getStructureID()));
         }

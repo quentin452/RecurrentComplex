@@ -14,7 +14,6 @@ import ivorius.ivtoolkit.tools.IvGsonHelper;
 import ivorius.reccomplex.json.RCGsonHelper;
 import ivorius.reccomplex.structures.StructureRegistry;
 import ivorius.reccomplex.utils.*;
-import joptsimple.internal.Strings;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -45,7 +44,7 @@ public class DependencyMatcher extends PrefixedTypeExpressionCache<Boolean>
     public static String ofMods(String... ids)
     {
         return ids.length > 0
-                ? MOD_PREFIX + Strings.join(Arrays.asList(ids), " & " + MOD_PREFIX)
+                ? MOD_PREFIX + String.join(" & " + MOD_PREFIX, Arrays.asList(ids))
                 : "";
     }
 

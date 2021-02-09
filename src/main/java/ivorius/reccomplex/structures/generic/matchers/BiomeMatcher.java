@@ -44,7 +44,7 @@ public class BiomeMatcher extends PrefixedTypeExpressionCache<Boolean> implement
 
     public static String ofTypes(BiomeDictionary.Type... biomeTypes)
     {
-        return BIOME_TYPE_PREFIX + Strings.join(Lists.transform(Arrays.asList(biomeTypes), input -> input != null ? IvGsonHelper.serializedName(input) : null), " & " + BIOME_TYPE_PREFIX);
+        return BIOME_TYPE_PREFIX + String.join(" & " + BIOME_TYPE_PREFIX, Lists.transform(Arrays.asList(biomeTypes), input -> input != null ? IvGsonHelper.serializedName(input) : null));
     }
 
     public static Set<BiomeGenBase> gatherAllBiomes()

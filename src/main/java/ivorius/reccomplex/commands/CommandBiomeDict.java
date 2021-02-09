@@ -10,7 +10,6 @@ import ivorius.reccomplex.RCConfig;
 import ivorius.reccomplex.json.RCGsonHelper;
 import ivorius.reccomplex.structures.generic.matchers.BiomeMatcher;
 import ivorius.reccomplex.utils.ServerTranslations;
-import joptsimple.internal.Strings;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;

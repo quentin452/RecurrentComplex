@@ -13,7 +13,6 @@ import ivorius.reccomplex.gui.TableDirections;
 import ivorius.reccomplex.gui.table.*;
 import ivorius.reccomplex.scripts.world.WorldScriptStructureGenerator;
 import ivorius.reccomplex.structures.StructureRegistry;
-import joptsimple.internal.Strings;
 import net.minecraftforge.common.util.ForgeDirection;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -83,7 +82,7 @@ public class TableDataSourceStructureBlock extends TableDataSourceSegmented impl
         {
             if (script.isSimpleMode())
             {
-                TableCellString cell = new TableCellString("generators", Strings.join(script.getStructureNames(), ","));
+                TableCellString cell = new TableCellString("generators", String.join(",", script.getStructureNames()));
                 cell.setShowsValidityState(true);
                 cell.setValidityState(doAllStructuresExist(script.getStructureNames()) ? GuiValidityStateIndicator.State.VALID : GuiValidityStateIndicator.State.SEMI_VALID);
                 cell.addPropertyListener(this);
