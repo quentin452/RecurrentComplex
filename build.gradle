@@ -6,12 +6,13 @@ buildscript {
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
         maven {
-            name = "github"
-            url = "https://github.com/juanmuscaria/maven/raw/master"
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
         }
+
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:[1.2-1.4.5-SNAPSHOT,)'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
