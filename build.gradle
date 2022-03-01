@@ -12,6 +12,13 @@ buildscript {
     }
 }
 
+repositories {
+    maven {
+        name 'central'
+        url 'https://maven.thorfusion.com/artifactory/central/'
+    }
+}
+
 apply plugin: 'forge'
 
 version = "0.9.7.1.2"
@@ -26,6 +33,10 @@ archivesBaseName = "RecurrentComplex"
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
     runDir = "eclipse"
+}
+
+dependencies {
+    compile 'ivorius.ivtoolkit:IvToolkit:1.2.1:dev'
 }
 
 processResources
