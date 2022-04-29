@@ -31,6 +31,15 @@ repositories {
     }
 }
 
+// Define properties file
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    // Load config. It shall from now be referenced as simply config or project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
 
 version = "${config.mod_version}"
 def ENV = System.getenv()
