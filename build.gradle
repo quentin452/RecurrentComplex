@@ -9,8 +9,20 @@ buildscript {
         classpath ('com.anatawa12.forge:ForgeGradle:1.2-1.0.+') {
             changing = true
         }
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
     }
 }
+
+plugins {
+    id 'java-library'
+}
+
+apply plugin: 'forge'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: "com.jfrog.artifactory"
+apply plugin: "maven-publish"
+apply plugin: "maven"
 
 repositories {
     maven {
@@ -19,9 +31,8 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
 
-version = "0.9.7.1.2"
+version = "${config.mod_version}"
 def ENV = System.getenv()
 if (ENV.DRONE_BUILD_NUMBER) {
     version += ".n" + ENV.DRONE_BUILD_NUMBER
@@ -35,8 +46,10 @@ minecraft {
     runDir = "eclipse"
 }
 
-dependencies {
-    compile 'ivorius.ivtoolkit:IvToolkit:1.2.1:dev'
+minecraft {
+    version = config.minecraft_version + "-" + config.forge_version
+    replaceIn "ivorius/reccomplex/RecurrentComplex.java"
+    replace "GRADLE_MODVERSION", config.mod_version
 }
 
 processResources
