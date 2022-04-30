@@ -41,6 +41,10 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
+dependencies {
+    compile "ivorius.ivtoolkit:IvToolkit:1.2.1:dev"
+}
+
 version = "${config.mod_version}"
 def ENV = System.getenv()
 if (ENV.DRONE_BUILD_NUMBER) {
@@ -49,11 +53,6 @@ if (ENV.DRONE_BUILD_NUMBER) {
 
 group= "ivorius.reccomplex" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RecurrentComplex"
-
-minecraft {
-    version = "1.7.10-10.13.4.1614-1.7.10"
-    runDir = "eclipse"
-}
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
@@ -131,6 +130,10 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifactId = rootProject.name
+            groupId = project.group
+            version = project.version
+            artifacts = [sourceJar, deobfJar, jar]
         }
     }
 }
