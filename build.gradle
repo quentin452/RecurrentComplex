@@ -42,7 +42,7 @@ configFile.withReader {
 }
 
 dependencies {
-    compile "ivorius.ivtoolkit:IvToolkit:1.2.1:dev"
+    compile(group: 'ivorius.ivtoolkit', name: 'IvToolkit', version: '1.2.1', classifier: 'dev')
 }
 
 version = "${config.mod_version}"
