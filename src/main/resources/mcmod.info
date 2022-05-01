@@ -1,7 +1,7 @@
 [
 {
   "modid": "reccomplex",
-  "name": "Recurrent Complex",
+  "name": "Recurrent Complex TF-E",
   "description": "Adds structures to worldgen, handles exporting and importing structures, and provides build tools.",
   "version": "${version}",
   "mcversion": "${mcversion}",
