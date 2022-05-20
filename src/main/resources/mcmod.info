@@ -11,6 +11,6 @@
   "credits": "See structurecredits.txt for full default structure list credits.",
   "logoFile": "gfx/reccomplex/logo.png",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": ["IvToolkit"]
 }
 ]
