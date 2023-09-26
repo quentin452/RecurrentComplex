@@ -5,6 +5,11 @@
 
 package ivorius.reccomplex.structures.generic.matchers;
 
+import com.gibby.dungeon.Dungeons;
+import com.gibby.dungeon.gen.WorldProviderCrystal;
+import com.gibby.dungeon.gen.WorldProviderCrystalliumPlains;
+import com.gibby.dungeon.gen.WorldProviderMontane;
+import com.gibby.dungeon.gen.WorldProviderSunset;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -46,6 +51,7 @@ public class DimensionMatcher extends PrefixedTypeExpressionCache<Boolean> imple
     @Override
     public boolean apply(final WorldProvider input)
     {
+
         return evaluate(input);
     }
 

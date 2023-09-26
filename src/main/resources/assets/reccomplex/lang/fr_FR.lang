@@ -283,6 +283,14 @@ reccomplex.dimensionPreset.nether=Enfer
 reccomplex.dimensionPreset.nether.tooltip=Dimensions ressemblant à l'enfer
 reccomplex.dimensionPreset.end=Fin
 reccomplex.dimensionPreset.end.tooltip=Dimensions ressemblant à la fin
+reccomplex.dimensionPreset.Crystallium Dimension(Arcana RPG)=Cristallium(Arcana RPG)
+reccomplex.dimensionPreset.Crystallium Dimension(Arcana RPG).tooltip=
+reccomplex.dimensionPreset.Crystal Dimension(Arcana RPG)=Cristal(Arcana RPG)
+reccomplex.dimensionPreset.Crystal Dimension(Arcana RPG).tooltip=
+reccomplex.dimensionPreset.Sunset Dimension(Arcana RPG)=Sunset(Arcana RPG)
+reccomplex.dimensionPreset.Sunset Dimension(Arcana RPG).tooltip=
+reccomplex.dimensionPreset.Montane Dimension(Arcana RPG)=Montane
+reccomplex.dimensionPreset.Montane Dimension(Arcana RPG).tooltip=
 
 reccomplex.weightedBlockStatePreset.clear=Vide
 reccomplex.weightedBlockStatePreset.clear.tooltip=pas de Blocs
