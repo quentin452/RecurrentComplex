@@ -99,48 +99,6 @@ artifacts {
     archives deobfJar
 }
 
-artifactory {
-    contextUrl = System.getenv("MAVEN_URL")
-    publish {
-        repository {
-            repoKey = 'thorfusion'
-            username = System.getenv("MAVEN_USERNAME")
-            password = System.getenv("MAVEN_PASSWORD")
-            maven = true
-        }
-        defaults {
-            publications('mavenJava')
-        }
-        publishBuildInfo = false
-        publishArtifacts = true
-        publishPom = true
-    }
-    resolve {
-        repository {
-            repoKey = 'central'
-            username = System.getenv("MAVEN_USERNAME")
-            password = System.getenv("MAVEN_PASSWORD")
-            maven = true
-
-        }
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifactId = rootProject.name
-            groupId = project.group
-            version = project.version
-            artifacts = [sourceJar, deobfJar, jar]
-            components.java.withVariantsFromConfiguration(configurations.runtimeElements) {
-                skip()
-            }
-        }
-    }
-}
-
 uploadArchives() {
     dependsOn reobf
 

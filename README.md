@@ -1,22 +1,17 @@
-Recurrent Complex
-============
+# Recurrent Complex Arcana Rpg Continuation Edition
 
-Recurrent complex is using an older version of the jopt library wich causes it to crash with updated version of Thermos and alike.
+This mod is a fork of https://www.curseforge.com/minecraft/mc-mods/recurrent-complex-patched
 
+To see new changes thats maked in the fork you can see https://github.com/quentin452/RecurrentComplex/wiki
 
-Patch was made by [EverNife](https://github.com/EverNife)
+# Links to descriptions of my projects.
 
+[*Github*](https://github.com/quentin452/RecurrentComplex)
 
-I just made the compiling working again after forge moved their maven. And extracted the 1.7.10 version of [ivtoolkit on github](https://github.com/Thorfusion/IvToolkit) from the timeline since it was never tagged in git, had to do this after it was removed from forges maven and its a dependency when compiling. Had to recompile ivtoolkit aswell.
-Structure mod for Minecraft.
+[*Curseforge*](https://legacy.curseforge.com/minecraft/mc-mods/recurrent-complex-arcana-rpg-continuation-edition)
 
-Visit the [Wiki](https://github.com/Ivorforce/RecurrentComplex/wiki) for information about the mod.
+# Discord
 
-Visit the [mod page](http://www.minecraftforum.net/topic/563257-172-ivorius-mods-drugs-statues-flags-boxes-of-doom-hamsters/) for the newest versions.
+Add me on discord : iamacatfr
 
-
-# License stuff
-
-[LICENSE](https://raw.githubusercontent.com/Thorfusion/RecurrentComplex/1.7/LICENSE.md)
-
-[ORIGINAL MOD](https://github.com/Ivorforce/RecurrentComplex)
+Discord server : https://discord.gg/ZnmHKJzKkZ

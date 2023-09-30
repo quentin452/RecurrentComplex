@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class StructureGenerationData extends WorldSavedData
 {
-    private static final String IDENTIFIER = RecurrentComplex.MODID + ":structuredata";
+    private static final String IDENTIFIER = RecurrentComplex.MODID + "-structuredata";
 
     protected final Set<ChunkCoordIntPair> checkedChunks = new HashSet<>();
     protected final Set<ChunkCoordIntPair> checkedChunksFinal = new HashSet<>();
