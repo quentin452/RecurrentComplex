@@ -5,7 +5,6 @@
 
 package ivorius.reccomplex;
 
-import com.gibby.dungeon.Dungeons;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -270,18 +269,6 @@ public class RCRegistryHandler
 
         DimensionMatcherPresets.instance().register("end",
                 new DimensionGenerationInfo(DimensionMatcher.ofTypes(DimensionDictionary.ENDER, DimensionDictionary.NO_TOP_LIMIT, DimensionDictionary.NO_BOTTOM_LIMIT), null)
-        );
-        DimensionMatcherPresets.instance().register("Crystal Dimension(Arcana RPG)",
-                new DimensionGenerationInfo(DimensionMatcher.ofTypes(String.valueOf(Dungeons.crystalDimensionId), DimensionDictionary.NO_TOP_LIMIT, DimensionDictionary.NO_BOTTOM_LIMIT), null)
-        );
-        DimensionMatcherPresets.instance().register("Crystallium Dimension(Arcana RPG)",
-                new DimensionGenerationInfo(DimensionMatcher.ofTypes(String.valueOf(Dungeons.crystalliumPlainsDimensionId), DimensionDictionary.NO_TOP_LIMIT, DimensionDictionary.NO_BOTTOM_LIMIT), null)
-        );
-        DimensionMatcherPresets.instance().register("Sunset Dimension(Arcana RPG)",
-                new DimensionGenerationInfo(DimensionMatcher.ofTypes(String.valueOf(Dungeons.sunsetDimensionId), DimensionDictionary.NO_TOP_LIMIT, DimensionDictionary.NO_BOTTOM_LIMIT), null)
-        );
-        DimensionMatcherPresets.instance().register("Montane Dimension(Arcana RPG)",
-                new DimensionGenerationInfo(DimensionMatcher.ofTypes(String.valueOf(Dungeons.montaneDungeonDimensionId), DimensionDictionary.NO_TOP_LIMIT, DimensionDictionary.NO_BOTTOM_LIMIT), null)
         );
     }
 

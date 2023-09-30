@@ -305,14 +305,6 @@ reccomplex.dimensionPreset.nether=Nether
 reccomplex.dimensionPreset.nether.tooltip=Dimensions resembling the Nether
 reccomplex.dimensionPreset.end=End
 reccomplex.dimensionPreset.end.tooltip=Dimensions resembling the End
-reccomplex.dimensionPreset.Crystallium Dimension(Arcana RPG)=Cristallium(Arcana RPG)
-reccomplex.dimensionPreset.Crystallium Dimension(Arcana RPG).tooltip=
-reccomplex.dimensionPreset.Crystal Dimension(Arcana RPG)=Cristal(Arcana RPG)
-reccomplex.dimensionPreset.Crystal Dimension(Arcana RPG).tooltip=
-reccomplex.dimensionPreset.Sunset Dimension(Arcana RPG)=Sunset(Arcana RPG)
-reccomplex.dimensionPreset.Sunset Dimension(Arcana RPG).tooltip=
-reccomplex.dimensionPreset.Montane Dimension(Arcana RPG)=Montane(Arcana RPG)
-reccomplex.dimensionPreset.Montane Dimension(Arcana RPG).tooltip=
 
 reccomplex.weightedBlockStatePreset.clear=Clear
 reccomplex.weightedBlockStatePreset.clear.tooltip=No Blocks

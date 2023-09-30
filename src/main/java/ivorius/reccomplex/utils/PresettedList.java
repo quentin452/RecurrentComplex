@@ -48,20 +48,9 @@ public class PresettedList<T>
     public boolean setPreset(@Nullable String preset)
     {
         this.preset = preset;
-
-        if (preset != null)
-        {
-            List<T> presetList = listPresets.preset(preset);
-            if (presetList != null)
-            {
-                // Ajouter le contenu du nouveau preset à la liste existante
-                list.addAll(presetList);
-                return true;
-            }
-        }
-
-        return false;
+        return loadListFromPreset();
     }
+
     public void setToCustom()
     {
         preset = null;
