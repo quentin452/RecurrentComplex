@@ -2,7 +2,7 @@
 
 This mod is a fork of https://www.curseforge.com/minecraft/mc-mods/recurrent-complex-patched which is a fork of https://www.curseforge.com/minecraft/mc-mods/recurrent-complex
 
-Even if the mod is described has "Arcana Rpg Continuation Edition" you can use it in your modpacks
+Even if the mod is described has "Arcana Rpg Continuation Edition" you can use it without Arcana Rpg Continuation
 
 To see all listed changes : https://github.com/quentin452/RecurrentComplex/wiki
 
@@ -21,3 +21,9 @@ Discord server : https://discord.gg/ZnmHKJzKkZ
 **New Fixes :**
 
 Fix StructureGenerationData creates invalid structuredata save file on Windows-based systems
+
+**New Features:**
+
+Add more Choice to categories(for structures frequency when editing/exporting the structure)
+
+Add a config to disable some logging
