@@ -167,6 +167,14 @@ structure.delete.success=Structure effacée du fichier '%s'
 structures.gui.true=Vrai
 structures.gui.false=Faux
 
+structures.category.allchunk=Tout Les Chunks
+structures.category.allchunk.tooltip=Plants ou Décorations scènes<br>structure aléatoire tous les chunks
+structures.category.extremlyfrequent=Extremement Fréquente
+structures.category.extremlyfrequent.tooltip=Plants ou Décorations ou scènes<br>structure aléatoire tous les 2 chunks
+structures.category.veryfrequent=Trè sFréquente
+structures.category.veryfrequent.tooltip=Petites structures ou scènes<br>structure aléatoire tous les 5 chunks
+structures.category.mostfrequent=Plus Tôt Fréquente
+structures.category.mostfrequent.tooltip=Petites structures ou scènes<br>structure aléatoire tous les 8 chunks
 structures.category.frequent=Fréquente
 structures.category.frequent.tooltip=Petites structures ou scènes<br>structure aléatoire tous les 10 chunks
 structures.category.decoration=Commune

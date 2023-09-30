@@ -1,0 +1,7 @@
+{
+  "defaultSpawnChance": 0.2,
+  "generationInfos": [],
+  "selectableInGUI": true,
+  "title": "Very Frequent",
+  "tooltip": ["Small structures or scenery", "Random structure each 5 chunks"]
+}

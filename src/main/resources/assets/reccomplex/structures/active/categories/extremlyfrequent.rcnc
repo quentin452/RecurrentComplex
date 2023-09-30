@@ -1,0 +1,7 @@
+{
+  "defaultSpawnChance": 0.5,
+  "generationInfos": [],
+  "selectableInGUI": true,
+  "title": "Extremly Frequent",
+  "tooltip": ["Plants or Decoration", "Random structure each 2 chunks"]
+}

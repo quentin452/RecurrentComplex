@@ -1,0 +1,7 @@
+{
+  "defaultSpawnChance": 1.0,
+  "generationInfos": [],
+  "selectableInGUI": true,
+  "title": "All Chunk",
+  "tooltip": ["Plants or Decoration", "Random structure each chunks"]
+}
