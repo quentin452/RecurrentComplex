@@ -6,6 +6,7 @@
 package ivorius.reccomplex.random;
 
 import com.google.common.io.LineReader;
+import ivorius.reccomplex.RCConfig;
 import ivorius.reccomplex.RecurrentComplex;
 import ivorius.reccomplex.utils.CustomizableMap;
 
@@ -110,10 +111,11 @@ public class Poem
 
     public static void registerTheme(String name, Theme theme, boolean custom)
     {
+        if (!RCConfig.disablingsomeloggings){
         String baseString = themes.put(name, theme, custom) != null ? "Replaced poem theme '%s'" : "Registered poem theme '%s'";
         RecurrentComplex.logger.info(String.format(baseString, name));
     }
-
+    }
     public static void unregisterTheme(String name, boolean custom)
     {
         themes.remove(name, custom);

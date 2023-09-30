@@ -46,6 +46,8 @@ public class RCConfig
 
     private static boolean lightweightMode;
 
+    public static boolean disablingsomeloggings;
+
     private static ResourceMatcher structureLoadMatcher = new ResourceMatcher("");
     private static ResourceMatcher structureGenerationMatcher = new ResourceMatcher("");
 
@@ -71,6 +73,7 @@ public class RCConfig
         if (configID == null || configID.equals(CATEGORY_BALANCING))
         {
             lightweightMode = RecurrentComplex.config.getBoolean("lightweightMode", CATEGORY_BALANCING, false, "Enabling this will make the mod register as little as possible, which enables it to be used server-side only.");
+            disablingsomeloggings = RecurrentComplex.config.getBoolean("disablingsomeloggings", CATEGORY_BALANCING, false, "Enabling this will disable some loggings like (registered/replaced and more)");
 
             avoidOverlappingGeneration = RecurrentComplex.config.getBoolean("avoidOverlappingGeneration", CATEGORY_BALANCING, true, "Enabling this will cancel any structure generation if another structure is present at the cooridnate already.");
             honorStructureGenerationOption = RecurrentComplex.config.getBoolean("honorStructureGenerationOption", CATEGORY_BALANCING, true, "If disabled, Recurrent Complex will generate structures in worlds without the structure generation option.");

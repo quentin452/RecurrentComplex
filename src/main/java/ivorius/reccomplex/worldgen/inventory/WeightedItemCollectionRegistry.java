@@ -5,6 +5,7 @@
 
 package ivorius.reccomplex.worldgen.inventory;
 
+import ivorius.reccomplex.RCConfig;
 import ivorius.reccomplex.RecurrentComplex;
 
 import java.util.*;
@@ -18,8 +19,10 @@ public class WeightedItemCollectionRegistry
 
     public static void register(WeightedItemCollection weightedItemCollection, String key)
     {
+        if (!RCConfig.disablingsomeloggings){
         RecurrentComplex.logger.info(weightedItemCollectionMap.containsKey(key) ? "Replaced inventory generator '" + key + "'" : "Registered inventory generator '" + key + "'");
         weightedItemCollectionMap.put(key, weightedItemCollection);
+        }
     }
 
     public static WeightedItemCollection itemCollection(String key)

@@ -78,7 +78,7 @@ public class StructureRegistry
     {
         StructureRegistrationEvent.Pre event = new StructureRegistrationEvent.Pre(key, info, generates);
         RCEventBus.INSTANCE.post(event);
-
+        if (!RCConfig.disablingsomeloggings){
         if (event.getResult() != Event.Result.DENY && RCConfig.shouldStructureLoad(key, domain))
         {
             String baseString = allStructures.put(key, info, custom) != null ? "Replaced structure '%s'" : "Registered structure '%s'";
@@ -91,6 +91,7 @@ public class StructureRegistry
             RCEventBus.INSTANCE.post(new StructureRegistrationEvent.Post(key, info, generates));
 
             return true;
+        }
         }
 
         return false;

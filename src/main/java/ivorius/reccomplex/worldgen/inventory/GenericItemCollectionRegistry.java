@@ -46,6 +46,7 @@ public class GenericItemCollectionRegistry
 
     public boolean register(Component component, String key, String domain, boolean generates, boolean custom)
     {
+        if (!RCConfig.disablingsomeloggings){
         if (RCConfig.shouldInventoryGeneratorLoad(key, domain))
         {
             String baseString = allComponents.put(key, component, custom) != null ? "Replaced inventory generation component '%s'" : "Registered generation component '%s'";
@@ -57,7 +58,7 @@ public class GenericItemCollectionRegistry
 
             return true;
         }
-
+        }
         return false;
     }
 
