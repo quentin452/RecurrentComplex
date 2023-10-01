@@ -18,10 +18,6 @@ Add me on discord : iamacatfr
 
 Discord server : https://discord.gg/ZnmHKJzKkZ
 
-**New Fixes :**
-
-Fix StructureGenerationData creates invalid structuredata save file on Windows-based systems
-
 **New Features:**
 
 Add more Choice to categories(for structures frequency when editing/exporting the structure)
