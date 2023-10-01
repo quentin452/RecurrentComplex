@@ -1,5 +1,5 @@
 {
-  "defaultSpawnChance": 0.002,
+  "defaultSpawnChance": 0.004,
   "generationInfos": [],
   "selectableInGUI": true,
   "title": "Adventure",

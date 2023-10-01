@@ -134,6 +134,12 @@ inventorygen.save.failure=Falha ao exportar gerador de inventário para '%s'
 structures.gui.true=Verdadeiro
 structures.gui.false=Falso
 
+structures.category.50chunk=Todas as 50 Chunks
+structures.category.50chunk.tooltip=Estruturas cênicas<br>Estrutura aleatória a cada 50 chunks
+structures.category.100chunk=Todas as 100 Chunks
+structures.category.100chunk.tooltip=Estruturas cênicas<br>Estrutura aleatória a cada 100 chunks
+structures.category.500chunk=Todas as 500 Chunks
+structures.category.500chunk.tooltip=Estruturas cênicas<br>Estrutura aleatória a cada 500 chunks
 structures.category.allchunk=Todos os Chunks
 structures.category.allchunk.tooltip=Plantas ou Cenas de Decoração<br>Estrutura aleatória a cada chunk
 structures.category.extremlyfrequent=Muito Frequente

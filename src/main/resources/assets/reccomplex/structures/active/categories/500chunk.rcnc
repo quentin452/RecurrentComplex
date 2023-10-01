@@ -1,0 +1,7 @@
+{
+  "defaultSpawnChance": 0.002,
+  "generationInfos": [],
+  "selectableInGUI": true,
+  "title": "Each 500 Chunk",
+  "tooltip": ["Plants or Decoration", "Random structure each 500 chunks"]
+}
