@@ -22,6 +22,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
 
 /**
  * Created by lukas on 24.05.14.
@@ -242,8 +243,6 @@ public class StructureEntityInfo implements IExtendedEntityProperties, PartialUp
             buffer.writeBoolean(showGrid);
         }
     }
-
-    @Override
     public void readUpdateData(ByteBuf buffer, String context)
     {
         if ("selection".equals(context))
@@ -260,11 +259,21 @@ public class StructureEntityInfo implements IExtendedEntityProperties, PartialUp
             try
             {
                 NBTTagCompound tag = ByteBufUtils.readTag(buffer);
-                danglingOperation = tag != null ? OperationRegistry.readOperation(tag) : null;
+                if (tag != null) {
+                    try {
+                        danglingOperation = OperationRegistry.readOperation(tag);
+                    } catch (NumberFormatException e) {
+                        RecurrentComplex.logger.error("The format of the operation tag is invalid", e);
+                    } catch (Exception  e) {
+                        RecurrentComplex.logger.error("Another Exception", e);
+                    }
+                } else {
+                    danglingOperation = null;
+                }
             }
             catch (Exception e)
             {
-                RecurrentComplex.logger.warn("Error reading operation tag", buffer);
+                RecurrentComplex.logger.error("An unknown error occurred while reading operation tag", e);
             }
         }
         else if ("options".equals(context))
