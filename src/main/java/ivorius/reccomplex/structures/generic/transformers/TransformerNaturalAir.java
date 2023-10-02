@@ -27,11 +27,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -80,20 +82,21 @@ public class TransformerNaturalAir extends TransformerSingleBlock<NBTNone>
         coord = coord.subtract(0, 4, 0);
 
         int currentY = coord.y;
-        List<int[]> currentList = new ArrayList<>();
-        List<int[]> nextList = new ArrayList<>();
+        LinkedList<int[]> currentList = new LinkedList<>();
+        LinkedList<int[]> nextList = new LinkedList<>();
         nextList.add(new int[]{coord.x, coord.z});
 
         int worldHeight = world.getHeight();
-        while (nextList.size() > 0 && currentY < worldHeight)
+        double naturalExpansionDistanceSq = naturalExpansionDistance * naturalExpansionDistance;
+        while (!nextList.isEmpty() && currentY < worldHeight)
         {
-            List<int[]> cachedList = currentList;
+            LinkedList<int[]> cachedList = currentList;
             currentList = nextList;
             nextList = cachedList;
 
-            while (currentList.size() > 0)
+            for (int i = 0; i < currentList.size(); i++)
             {
-                int[] currentPos = currentList.remove(0);
+                int[] currentPos = currentList.get(i);
                 int currentX = currentPos[0];
                 int currentZ = currentPos[1];
                 Block curBlock = world.getBlock(currentX, currentY, currentZ);
@@ -112,7 +115,7 @@ public class TransformerNaturalAir extends TransformerSingleBlock<NBTNone>
                     double add = (random.nextDouble() - random.nextDouble()) * naturalExpansionRandomization;
                     distToOrigSQ += add < 0 ? -(add * add) : (add * add);
 
-                    if (distToOrigSQ < naturalExpansionDistance * naturalExpansionDistance)
+                    if (distToOrigSQ < naturalExpansionDistanceSq)
                     {
                         addIfNew(nextList, currentX, currentZ);
                         addIfNew(nextList, currentX - 1, currentZ);
@@ -121,9 +124,9 @@ public class TransformerNaturalAir extends TransformerSingleBlock<NBTNone>
                         addIfNew(nextList, currentX, currentZ + 1);
                     }
                 }
-            }
 
-            currentY++;
+                currentY++;
+            }
         }
     }
 
