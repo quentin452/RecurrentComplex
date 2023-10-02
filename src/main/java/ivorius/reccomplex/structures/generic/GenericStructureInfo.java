@@ -256,7 +256,12 @@ public class GenericStructureInfo implements StructureInfo<GenericStructureInfo.
 
     private boolean skips(List<Pair<Transformer, NBTStorable>> transformers, final IBlockState state)
     {
-        return transformers.stream().anyMatch(input -> input.getLeft().skipGeneration(input.getRight(), state));
+        for (Pair<Transformer, NBTStorable> pair : transformers) {
+            if (pair.getLeft().skipGeneration(pair.getRight(), state)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public IvWorldData constructWorldData(World world)

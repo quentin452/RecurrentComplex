@@ -51,7 +51,15 @@ public class PrefixedTypeExpressionCache<T> extends ExpressionCache<T>
 
     protected VariableType<T> type(final String var)
     {
-        return types.stream().filter(input -> var.startsWith(input.prefix)).findFirst().orElseGet(() -> null);
+        for (VariableType<T> input : types)
+        {
+            if (var.startsWith(input.prefix))
+            {
+                return input;
+            }
+        }
+
+        return null;
     }
 
     protected boolean isKnownVariable(String var, Object... args)
