@@ -107,7 +107,12 @@ public class BiomeMatcher extends PrefixedTypeExpressionCache<Boolean> implement
         @Override
         public boolean isKnown(final String var, final Object... args)
         {
-            return StreamSupport.stream(((Iterable<BiomeGenBase>) args[0]).spliterator(), false).anyMatch(input -> input.biomeName.equals(var));
+            if (args[0] instanceof Iterable) {
+                Iterable<?> iterable = (Iterable<?>) args[0];
+                return StreamSupport.stream(iterable.spliterator(), false).anyMatch(input -> input instanceof BiomeGenBase && ((BiomeGenBase) input).biomeName.equals(var));
+            } else {
+                return false;
+            }
         }
     }
 
