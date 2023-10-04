@@ -42,8 +42,7 @@ configFile.withReader {
 }
 
 dependencies {
-    implementation(group: 'ivorius.ivtoolkit', name: 'IvToolkit', version: '1.2.1', classifier: 'dev')
-    implementation files('lib/DarkWorld-1.7.10-0.2-dev.jar')
+    compile(group: 'ivorius.ivtoolkit', name: 'IvToolkit', version: '1.2.1', classifier: 'dev')
 }
 
 version = "${config.mod_version}"
