@@ -9,6 +9,8 @@ import ivorius.ivtoolkit.blocks.BlockCoord;
 import ivorius.ivtoolkit.math.AxisAlignedTransform2D;
 import ivorius.reccomplex.utils.IBlockState;
 import ivorius.reccomplex.utils.BlockStates;
+import matthbo.mods.darkworld.handler.ConfigHandler;
+import matthbo.mods.darkworld.init.ModDimensions;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
@@ -100,7 +102,7 @@ public class StructureSpawnContext
 
     public boolean setBlock(BlockCoord coord, IBlockState state)
     {
-        if (includes(coord.x, coord.y, coord.z))
+        if (includes(coord.x, coord.y, coord.z) && shouldGenerateInDimension())
         {
             world.setBlock(coord.x, coord.y, coord.z, state.getBlock(), BlockStates.getMetadata(state), 2);
             return true;
@@ -111,12 +113,26 @@ public class StructureSpawnContext
 
     public boolean setBlock(int x, int y, int z, IBlockState state)
     {
-        if (includes(x, y, z))
+        if (includes(x, y, z) && shouldGenerateInDimension())
         {
             world.setBlock(x, y, z, state.getBlock(), BlockStates.getMetadata(state), 2);
             return true;
         }
 
         return false;  // world.setBlock returns false on 'no change'
+    }
+
+    private boolean shouldGenerateInDimension() {
+
+        int currentDimId = world.provider.dimensionId;
+
+        // Unauthorize explicitly generation in the DarkWorld  ,  fix #11 : https://github.com/quentin452/RecurrentComplex/issues/11
+        if(currentDimId == ModDimensions.dimensionIDDarkWorld) {
+            return false;
+        }
+
+        // Authorize explicitly generation in another dimensions
+        return true;
+
     }
 }
