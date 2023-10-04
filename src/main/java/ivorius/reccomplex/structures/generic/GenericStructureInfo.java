@@ -152,10 +152,10 @@ public class GenericStructureInfo implements StructureInfo<GenericStructureInfo.
                 IBlockState state = BlockStates.at(blockCollection, sourceCoord);
 
                 BlockCoord worldPos = context.transform.apply(sourceCoord, areaSize).add(origin);
-                if (context.includes(worldPos) && RecurrentComplex.specialRegistry.isSafe(state.getBlock()))
-                {
-                    TileEntity tileEntity = tileEntities.get(sourceCoord);
+                if(context.includes(worldPos) && state.getBlock() != null && RecurrentComplex.specialRegistry.isSafe(state.getBlock())) {
 
+                    TileEntity tileEntity = tileEntities.get(sourceCoord);
+                    if(tileEntity != null) {
                     if (pass == getPass(state) && (context.generateAsSource || !skips(transformers, state)))
                     {
                         if (context.generateAsSource || !(tileEntity instanceof GeneratingTileEntity) || ((GeneratingTileEntity) tileEntity).shouldPlaceInWorld(context, instanceData.tileEntities.get(sourceCoord)))
@@ -181,6 +181,7 @@ public class GenericStructureInfo implements StructureInfo<GenericStructureInfo.
                                 context.transform.rotateBlock(world, worldPos, state.getBlock());
                             }
                         }
+                    }
                         else
                             context.setBlock(worldPos, BlockStates.defaultState(Blocks.air)); // Replace with air
                     }
