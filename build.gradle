@@ -1,9 +1,10 @@
 buildscript {
-  repositories {
-    maven {
-        name 'central'
-        url 'https://maven.thorfusion.com/artifactory/central/'
-    }
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
     }
     dependencies {
         classpath ('com.anatawa12.forge:ForgeGradle:1.2-1.0.+') {
@@ -26,8 +27,7 @@ apply plugin: "maven"
 
 repositories {
     maven {
-        name 'central'
-        url 'https://maven.thorfusion.com/artifactory/central/'
+        url "https://cursemaven.com"
     }
 }
 
@@ -42,7 +42,7 @@ configFile.withReader {
 }
 
 dependencies {
-    compile(group: 'ivorius.ivtoolkit', name: 'IvToolkit', version: '1.2.1', classifier: 'dev')
+    implementation "curse.maven:ivtoolkit-arcana-rpg-continuation-edition-918155:4776309-deobf-sources-api"
 }
 
 version = "${config.mod_version}"
