@@ -23,3 +23,7 @@ Discord server : https://discord.gg/ZnmHKJzKkZ
 Add more Choice to categories(for structures frequency when editing/exporting the structure)
 
 Add a config to disable some logging
+
+**New Optimizations:**
+
+Improve overall ReachabilityStrategy.canReach() performances
