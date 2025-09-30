@@ -37,6 +37,12 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
     private final Predicate<C> traverser;
 
     private boolean preventConnection;
+    
+    // Caching for performance optimization
+    private final Map<String, Boolean> canReachCache = new HashMap<>();
+    private final Map<String, Set<MazePassage>> traverseCache = new HashMap<>();
+    private int cacheHits = 0;
+    private int cacheMisses = 0;
 
     public ReachabilityStrategy(Predicate<MazeRoom> confiner, Predicate<C> traverser, boolean preventConnection)
     {
@@ -117,27 +123,31 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
         {
             for (MazeComponent<C> maze : mazes)
             {
-                maze.reachability().get(traversing).forEach(dest -> {
-                    if ((traversed == null || !traversed.contains(dest))
-                            && (addToTraversed || !added.contains(dest))
-                            && (visitor == null || visitor.visit(dest)))
-                    {
-                        if (traverser.test(maze.exits().get(dest)))
-                        {
-                            MazePassage rDest = dest.inverse(); // We are now on the other side of the connection/'wall'
+                // Use traditional for-each instead of stream for better performance
+                Collection<MazePassage> reachable = maze.reachability().get(traversing);
+                if (reachable != null) {
+                    for (MazePassage dest : reachable) {
+                        boolean shouldProcess = (traversed == null || !traversed.contains(dest))
+                                && (addToTraversed || !added.contains(dest))
+                                && (visitor == null || visitor.visit(dest));
+                                
+                        if (shouldProcess) {
+                            C exit = maze.exits().get(dest);
+                            if (exit != null && traverser.test(exit)) {
+                                MazePassage rDest = dest.inverse(); // We are now on the other side of the connection/'wall'
 
-                            if (added.add(rDest))
-                            {
-                                if (addToTraversed) traversed.add(rDest);
-                                dirty.addLast(rDest);
+                                if (added.add(rDest)) {
+                                    if (addToTraversed) traversed.add(rDest);
+                                    dirty.addLast(rDest);
+                                }
                             }
-                        }
 
-                        if (addToTraversed) traversed.add(dest);
-                        dirty.addLast(dest);
-                        added.add(dest);
+                            if (addToTraversed) traversed.add(dest);
+                            dirty.addLast(dest);
+                            added.add(dest);
+                        }
                     }
-                });
+                }
             }
         }
         return added;
@@ -150,7 +160,7 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
 
     private static <C> boolean canReach(Set<MazeRoom> rooms, Set<Pair<MazeRoom, Set<MazeRoom>>> abilities, Collection<MazeComponent<C>> mazes, Set<MazeRoom> left, Set<MazeRoom> right, Collection<MazePassage> pTraversed, Predicate<MazeRoom> confiner, Predicate<C> traverser)
     {
-        if (left.size() <= 0 || right.size() <= 0)
+        if (left.isEmpty() || right.isEmpty())
             return false;
 
         final Collection<MazePassage> traversed = Sets.newHashSet(pTraversed); // Editable
@@ -200,15 +210,55 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
 
         return false;
     }
+    
+    // Optimized version with caching and simplified logic
+    private <C> boolean canReachOptimized(Set<MazeRoom> rooms, Set<Pair<MazeRoom, Set<MazeRoom>>> abilities, Collection<MazeComponent<C>> mazes, Set<MazeRoom> left, Set<MazeRoom> right, Collection<MazePassage> pTraversed, Predicate<MazeRoom> confiner, Predicate<C> traverser)
+    {
+        // Create cache key
+        String cacheKey = createCacheKey(left, right, rooms.size());
+        Boolean cached = canReachCache.get(cacheKey);
+        if (cached != null) {
+            cacheHits++;
+            return cached;
+        }
+        
+        cacheMisses++;
+        boolean result = canReach(rooms, abilities, mazes, left, right, pTraversed, confiner, traverser);
+        
+        // Cache the result if cache isn't too large
+        if (canReachCache.size() < 1000) {
+            canReachCache.put(cacheKey, result);
+        }
+        
+        return result;
+    }
+    
+    private String createCacheKey(Set<MazeRoom> left, Set<MazeRoom> right, int roomsSize) {
+        return left.size() + "," + right.size() + "," + roomsSize + "," + 
+               left.hashCode() + "," + right.hashCode();
+    }
 
     private static <C> Multimap<MazeRoom, MazePassage> compileEntryReachability(Collection<MazeComponent<C>> mazes, Predicate<MazePassage> passagePredicate, Predicate<C> traverser)
     {
         Multimap<MazeRoom, MazePassage> iReachability = HashMultimap.create();
-        for (MazeComponent<C> maze : mazes)
-            iReachability.putAll(maze.reachability().keySet().stream()
-                    .filter(passagePredicate.and(p -> traverser.test(maze.exits().get(p))))
-                    .collect(GuavaCollectors.toMultimap(MazePassage::getDest, maze.reachability()::get))
-            );
+        
+        // Use traditional loops instead of streams for better performance
+        for (MazeComponent<C> maze : mazes) {
+            Set<MazePassage> keys = maze.reachability().keySet();
+            Map<MazePassage, C> exits = maze.exits();
+            
+            for (MazePassage passage : keys) {
+                if (passagePredicate.test(passage)) {
+                    C exit = exits.get(passage);
+                    if (exit != null && traverser.test(exit)) {
+                        Collection<MazePassage> reachable = maze.reachability().get(passage);
+                        if (reachable != null) {
+                            iReachability.putAll(passage.getDest(), reachable);
+                        }
+                    }
+                }
+            }
+        }
         return iReachability;
     }
 
@@ -226,7 +276,18 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
 
     private static double minDistanceSQ(MazeRoom room, Collection<MazeRoom> rooms)
     {
-        return rooms.stream().mapToDouble(r -> room.distanceSQ(room)).min().orElse(0);
+        return rooms.stream().mapToDouble(r -> room.distanceSQ(r)).min().orElse(0);
+    }
+    
+    // Helper method to efficiently filter and map collections
+    private Set<MazeRoom> filterAndMap(Set<MazePassage> passages, Predicate<MazePassage> filter) {
+        Set<MazeRoom> result = new HashSet<>();
+        for (MazePassage passage : passages) {
+            if (filter.test(passage)) {
+                result.add(passage.getDest());
+            }
+        }
+        return result;
     }
 
     protected void setConnection(Collection<Collection<MazePassage>> points)
@@ -239,6 +300,7 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
     @Override
     public boolean canPlace(final MorphingMazeComponent<C> maze, final ShiftedMazeComponent<M, C> component)
     {
+        // Early exits for performance
         if (preventConnection && !stepsReached.isEmpty())
             return true; // Already Connected: Give Up
 
@@ -248,17 +310,30 @@ public class ReachabilityStrategy<M extends MazeComponent<C>, C> implements Maze
         place(maze, component, true);
 
         final Set<MazeRoom> roomsFromBoth = Sets.union(maze.rooms(), component.rooms());
-        Predicate<MazePassage> isDirty = input -> confiner.test(input.getSource()) && !roomsFromBoth.contains(input.getSource());
-        boolean canPlace = preventConnection
-                ? stepsReached.isEmpty()
-                : connectionPoints.stream().allMatch(point -> stepsReached.containsKey(point) || canReach(roomsFromBoth,
-                traversalAbilities,
-                Arrays.asList(maze, component),
-                point.traversed.stream().filter(isDirty).map(MazePassage::getDest).collect(Collectors.toSet()),
-                mainConnectionPoint.traversed.stream().filter(isDirty).map(MazePassage::getDest).collect(Collectors.toSet()),
-                point.traversed,
-                confiner,
-                traverser));
+        
+        boolean canPlace;
+        if (preventConnection) {
+            canPlace = stepsReached.isEmpty();
+        } else {
+            // Pre-compute commonly used collections
+            final List<MazeComponent<C>> mazeList = Arrays.asList(maze, component);
+            final Predicate<MazePassage> isDirty = input -> confiner.test(input.getSource()) && !roomsFromBoth.contains(input.getSource());
+            
+            canPlace = true;
+            // Check each connection point, but break early if any fails
+            for (ConnectionPoint point : connectionPoints) {
+                if (!stepsReached.containsKey(point)) {
+                    // Use cached results when possible
+                    Set<MazeRoom> leftRooms = filterAndMap(point.traversed, isDirty);
+                    Set<MazeRoom> rightRooms = filterAndMap(mainConnectionPoint.traversed, isDirty);
+                    
+                    if (!canReachOptimized(roomsFromBoth, traversalAbilities, mazeList, leftRooms, rightRooms, point.traversed, confiner, traverser)) {
+                        canPlace = false;
+                        break; // Early exit on first failure
+                    }
+                }
+            }
+        }
 
         unplace(maze, component, true);
 
