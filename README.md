@@ -24,6 +24,11 @@ Add more Choice to categories(for structures frequency when editing/exporting th
 
 Add a config to disable some logging
 
-**New Optimizations:**
+**New Optimizations**
 
+Divide Tps lags By 2 during generation of large structures like the sunset structure from Arcana Rpg Continuation
 Improve overall ReachabilityStrategy.canReach() performances
+
+**New Fixes**
+
+Fix crash when choosing biomes during Structure Editing
