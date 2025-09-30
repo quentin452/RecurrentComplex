@@ -1,11 +1,11 @@
-/*
-/*/
 !/src/
 !.gitignore
 !gradlew*
-!/gradle/
-!/build.gradle
 !/README.md
 !/.github/
 !/libs/
 !build.properties
+/.gradle
+/.vscode
+/build
+/run
